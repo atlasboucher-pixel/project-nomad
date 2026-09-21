@@ -1,0 +1,46 @@
+name: Planet Core checks
+
+on:
+  push:
+    branches: [planet-development]
+    paths:
+      - 'planet-core/**'
+      - 'admin/inertia/pages/home.tsx'
+      - '.github/workflows/planet-core.yml'
+  pull_request:
+    paths:
+      - 'planet-core/**'
+      - 'admin/inertia/pages/home.tsx'
+
+jobs:
+  planet-core:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Syntax check
+        working-directory: planet-core
+        run: npm run check
+      - name: End-to-end smoke test
+        working-directory: planet-core
+        run: npm test
+      - name: Build Planet Core container
+        run: docker build -t planet-core:test ./planet-core
+
+      - name: Compose configuration check
+        run: docker compose -f docker-compose.planet.yml config
+      - name: Start Planet deployment
+        run: docker compose -f docker-compose.planet.yml up -d --build
+      - name: Wait for Planet health
+        run: |
+          for i in $(seq 1 30); do
+            if curl -fsS http://127.0.0.1:8787/api/status; then exit 0; fi
+            sleep 2
+          done
+          docker compose -f docker-compose.planet.yml logs
+          exit 1
+      - name: Stop Planet deployment
+        if: always()
+        run: docker compose -f docker-compose.planet.yml down -v
