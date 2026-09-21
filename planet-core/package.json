@@ -3,6 +3,12 @@
   "version": "0.1.0",
   "private": true,
   "type": "module",
-  "scripts": {"start":"node src/app.js","check":"node --check src/app.js"},
-  "engines":{"node":">=22"}
+  "scripts": {
+    "start": "node src/app.js",
+    "check": "node --check src/app.js",
+    "test": "node test/smoke.mjs"
+  },
+  "engines": {
+    "node": ">=22"
+  }
 }
