@@ -4,6 +4,7 @@ import {
   IconHelp,
   IconMapRoute,
   IconPill,
+  IconWorld,
   IconSettings,
   IconWifiOff,
 } from '@tabler/icons-react'
@@ -48,6 +49,18 @@ const DRUG_REFERENCE_ITEM = {
   installed: true,
   displayOrder: 5,
   poweredBy: null,
+}
+
+// Planet Core — local-first homestead operating system.
+const PLANET_ITEM = {
+  label: 'Planet',
+  to: 'http://' + window.location.hostname + ':8787',
+  target: '_blank',
+  description: 'Planet IDs, livestock, inventory, journals and homestead sensors',
+  icon: <IconWorld size={48} />,
+  installed: true,
+  displayOrder: 3,
+  poweredBy: 'Planet Core',
 }
 
 // System items shown after all apps
@@ -158,7 +171,8 @@ export default function Home(props: {
       })
     })
 
-  // Add Maps as a Core Capability
+  // Add Planet and Maps as Core Capabilities
+  items.push(PLANET_ITEM)
   items.push(MAPS_ITEM)
 
   // Add the offline medical-reference tiles only once the FDA drug dataset is
