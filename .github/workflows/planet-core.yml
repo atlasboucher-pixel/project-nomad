@@ -1,0 +1,27 @@
+name: Planet Core checks
+
+on:
+  push:
+    branches: [planet-development]
+    paths:
+      - 'planet-core/**'
+      - 'admin/inertia/pages/home.tsx'
+      - '.github/workflows/planet-core.yml'
+  pull_request:
+    paths:
+      - 'planet-core/**'
+      - 'admin/inertia/pages/home.tsx'
+
+jobs:
+  planet-core:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Syntax check
+        working-directory: planet-core
+        run: npm run check
+      - name: Build Planet Core container
+        run: docker build -t planet-core:test ./planet-core
