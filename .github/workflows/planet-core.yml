@@ -23,5 +23,8 @@ jobs:
       - name: Syntax check
         working-directory: planet-core
         run: npm run check
+      - name: End-to-end smoke test
+        working-directory: planet-core
+        run: npm test
       - name: Build Planet Core container
         run: docker build -t planet-core:test ./planet-core
