@@ -185,14 +185,14 @@ async function api(req,res,url) {
   return json(res,405,{error:'Method not allowed'})
 }
 
-const page = `<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Planet Core</title><style>
+const page = String.raw`<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Apocalypse AI</title><style>
 :root{font-family:system-ui,sans-serif;color:#eaf1e8;background:#101812}*{box-sizing:border-box}body{margin:0}.wrap{max-width:1100px;margin:auto;padding:18px}
 header{display:flex;justify-content:space-between;align-items:center;gap:12px}.brand{font-size:1.7rem;font-weight:800}.muted{color:#a8b5aa}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px}.card{background:#18231b;border:1px solid #344b39;border-radius:14px;padding:16px}.big{font-size:2rem;font-weight:800}
 button{background:#7ca66f;color:#071008;border:0;border-radius:9px;padding:10px 14px;font-weight:700;cursor:pointer}input,select,textarea{width:100%;background:#0f1711;color:#fff;border:1px solid #46604b;border-radius:8px;padding:10px;margin:5px 0 10px}
 nav{display:flex;gap:8px;flex-wrap:wrap;margin:16px 0}nav button{background:#243529;color:#eaf1e8}.hidden{display:none}.row{display:flex;gap:8px;align-items:center;justify-content:space-between;border-top:1px solid #344b39;padding:10px 0}.danger{background:#a66f6f}.pill{font-size:.8rem;border:1px solid #52705a;border-radius:999px;padding:3px 7px}
 </style></head><body><div class="wrap">
-<header><div><div class="brand">🌎 Planet Core</div><div class="muted">Local-first homestead operating system</div></div><button id="logout" class="hidden">Log out</button></header>
+<header><div><div class="brand">🌎 Apocalypse AI</div><div class="muted">Offline-first local survival & homestead system</div></div><button id="logout" class="hidden">Log out</button></header>
 <section id="setup" class="card hidden"><h2>First-run setup</h2><p>Create the local owner. Nothing is sent to the cloud.</p><input id="ownerName" placeholder="Owner name"><input id="ownerPass" type="password" placeholder="Password (8+ characters)"><button onclick="setup()">Create Planet</button><p id="setupMsg"></p></section>
 <section id="login" class="card hidden"><h2>Unlock Planet</h2><input id="loginPass" type="password" placeholder="Password"><button onclick="login()">Unlock</button><p id="loginMsg"></p></section>
 <main id="app" class="hidden"><nav><button onclick="show('modules')">All 27 Features</button><button onclick="show('dash')">Dashboard</button><button onclick="show('animals')">Animals</button><button onclick="show('inventory')">Inventory</button><button onclick="show('notes')">Notes</button><button onclick="show('sensors')">Sensors</button><button onclick="show('identities')">Planet IDs</button></nav>
